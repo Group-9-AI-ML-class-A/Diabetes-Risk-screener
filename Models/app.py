@@ -1,14 +1,17 @@
 import streamlit as st
 import pandas as pd
 import joblib
+from pathlib import Path
 
 st.set_page_config(page_title="Diabetes Risk Screener")
 
+BASE = Path(__file__).parent
+
 @st.cache_resource
 def load_all():
-    scaler = joblib.load("diabetes_scaler.pkl")
-    balanced = joblib.load("diabetes_risk_model_balanced.pkl")
-    high_recall = joblib.load("diabetes_risk_model_high_recall.pkl")
+    scaler = joblib.load(BASE / "diabetes_scaler.pkl")
+    balanced = joblib.load(BASE / "diabetes_risk_model_balanced.pkl")
+    high_recall = joblib.load(BASE / "diabetes_risk_model_high_recall.pkl")
     return scaler, balanced, high_recall
 
 scaler, model_balanced, model_high_recall = load_all()
